@@ -2,40 +2,65 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Nueva York RP | Inicio</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Bienvenido a RAYUELA</title>
+    <style>
+        body {
+            font-family: Tahoma, sans-serif;
+            margin: 0;
+            background-color: #f2f2f2;
+            color: #333;
+            text-align: center;
+        }
+
+        header {
+            background-color: #3498db;
+            color: white;
+            padding: 15px 0;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 60px);
+            flex-direction: column;
+        }
+
+        h1 {
+            font-size: 50px;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        button {
+            font-family: Tahoma, sans-serif;
+            padding: 12px 25px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        button:hover {
+            background-color: #c0392b;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="logo">NY<span>RP</span></div>
-        <div class="nav-links">
-            <a href="index.html">Inicio</a>
-            <a href="bot-estado.html">Estado Bot</a>
-            <!-- Ahora llama correctamente al JS con onclick -->
-            <a href="javascript:void(0);" class="nav-btn" onclick="moduloSeleccionado('preparar-acceso-aplicacion', 'CIUDADANO')">
-                Carpeta Ciudadana
-            </a>
-        </div>
-    </nav>
-
-    <header class="hero ny-bg">
-        <div class="hero-content">
-            <h1>BIENVENIDO A NUEVA YORK</h1>
-            <p>La ciudad que nunca duerme te espera. Vive una experiencia de rol hardcore con economía real y sistemas avanzados.</p>
-            <a href="https://discord.gg/c4TVsZbqg4" target="_blank" class="btn-discord">UNIRSE AL DISCORD</a>
-        </div>
+    <header>
+        Acceso
     </header>
 
-    <section class="staff-section">
-        <h2>EQUIPO DIRECTIVO</h2>
-        <div class="staff-grid">
-            <div class="staff-card"><h3>Admin Nombre</h3><p>Fundador</p></div>
-            <div class="staff-card"><h3>Admin Nombre</h3><p>Programador</p></div>
-            <div class="staff-card"><h3>Admin Nombre</h3><p>Gestión Staff</p></div>
-        </div>
-    </section>
+    <main>
+        <h1>Bienvenido a R A Y U E L A</h1>
+        <button id="accesoBtn">Acceder</button>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTsY3G2N4ttHI1KBmhvDHQn7cOJRYhkuHnxrQ&s" alt="6">
+    </main>
 
-    <!-- Importar tu JS con la función moduloSeleccionado -->
-    <script src="PrepararModuloAccesoControlador.js"></script>
+    <script src="PrepararAccesoAplicacionACCEDER.js"></script>
 </body>
 </html>

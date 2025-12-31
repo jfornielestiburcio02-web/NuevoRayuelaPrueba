@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Acceso Rayuela Simulado</title>
+<style>
+    body { font-family: Tahoma, sans-serif; text-align:center; }
+    header { background-color: #3498db; color:white; padding:15px; font-size:24px; font-weight:bold; }
+    main { margin-top:50px; }
+    button { padding:12px 25px; margin:10px; border:none; border-radius:5px; cursor:pointer; color:white; }
+    #conCredenciales { background-color:#27ae60; }
+    #sinCredenciales { background-color:#e74c3c; }
+    /* Div inferior izquierdo tipo Rayuela */
+    #jsInfo {
+        position: fixed;
+        bottom: 5px;
+        left: 5px;
+        font-size: 12px;
+        color: #555;
+        background-color: rgba(255,255,255,0.7);
+        padding: 2px 5px;
+        border-radius:3px;
+        font-family: Tahoma, sans-serif;
+    }
+</style>
+</head>
+<body>
+<header>R A Y U E L A Acceso</header>
+<main>
+    <h1>Selecciona tu forma de acceso</h1>
+    <button id="conCredenciales">Acceder con credenciales</button>
+    <button id="sinCredenciales">Acceder sin credenciales</button>
+</main>
+
+<div id="jsInfo">Script activo: ninguno</div>
+
+<script>
+    // Simulación del comportamiento de Rayuela
+    document.getElementById("conCredenciales").addEventListener("mouseover", function() {
+        document.getElementById("jsInfo").innerText = "Script activo: PrepararAccesoAplicacionACCCONCREDENCIALES.js";
+    });
+    document.getElementById("conCredenciales").addEventListener("mouseout", function() {
+        document.getElementById("jsInfo").innerText = "Script activo: ninguno";
+    });
+
+    document.getElementById("sinCredenciales").addEventListener("mouseover", function() {
+        document.getElementById("jsInfo").innerText = "Script activo: PrepararAccesoAplicacionACCSINCREDENCIALES.js";
+    });
+    document.getElementById("sinCredenciales").addEventListener("mouseout", function() {
+        document.getElementById("jsInfo").innerText = "Script activo: ninguno";
+    });
+
+    // Click real con redirección
+    document.getElementById("conCredenciales").addEventListener("click", function() {
+        window.location.href = "http://127.0.0.1:5500/Concredenciales.html";
+    });
+    document.getElementById("sinCredenciales").addEventListener("click", function() {
+        window.location.href = "http://127.0.0.1:5500/Sincredenciales.html";
+    });
+</script>
+</body>
+</html>

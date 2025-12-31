@@ -13,7 +13,10 @@
                 <div class="icon">📂</div>
                 <h1>CARPETA CIUDADANA</h1>
                 <p>Accede a tu DNI, licencias y propiedades de Nueva York.</p>
-                <button id="auth-btn" class="btn-main">LOGUEARSE CON DISCORD</button>
+                <!-- Botón llama a la función del JS -->
+                <button id="auth-btn" class="btn-main" onclick="loginDiscord()">
+                    LOGUEARSE CON DISCORD
+                </button>
             </div>
 
             <div id="success-content" class="hidden">
@@ -24,6 +27,8 @@
             </div>
         </div>
     </main>
-    <script src="script.js"></script>
+
+    <!-- Importamos tu JS que contiene la función loginDiscord -->
+    <script src="PrepararModuloAccesoLoginDiscord.js"></script>
 </body>
 </html>

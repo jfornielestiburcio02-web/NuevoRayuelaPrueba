@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NY-RP | Mantenimiento</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Orbitron:wght@900&display=swap" rel="stylesheet">
+    <style>
+        /* Variables de color */
+        :root {
+            --primary: #ff00ea;
+        }
+
+        /* Estilo para el botón */
+        .btn-action {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 25px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.3s;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        /* Efecto hover */
+        .btn-action:hover {
+            background: var(--primary);
+            color: #fff;
+        }
+    </style>
+</head>
+<body class="maint-body">
+    <nav class="navbar">
+        <div class="logo" style="color: #ff00ea;">NY<span>STAFF</span></div>
+        <div class="nav-links">
+        </div>
+    </nav>    
+
+    <div class="maint-bg-overlay"></div>
+    
+    <div class="maint-glass-card">
+        <div class="maint-badge">SISTEMA DESHABILITADO</div>
+        <h1>PAUSADO</h1>
+        <p>Estamos realizando mejoras en el sistema central de administración de Nueva York. Volveremos pronto.</p>
+        
+        <div class="maint-loader"></div>
+
+        <!-- Botón con la clase btn-action -->
+        <button id="btn-redirect" class="btn-action">Volver al panel</button>
+        
+        <div style="margin-top: 60px; font-size: 9px; color: rgba(255,255,255,0.15); font-family: 'Orbitron'; letter-spacing: 5px;">
+            NEW YORK CITY ROLEPLAY
+        </div>
+    </div>
+
+    <!-- Llamada al JS externo -->
+    <script src="btn-redirect.js"></script>
+</body>
+</html>

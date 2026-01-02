@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Codificador de Mensajes</title>
+<style>
+    body { font-family: Arial; text-align: center; padding: 50px; }
+    input, button { font-size: 18px; margin: 5px; padding: 5px; }
+    #resultado { margin-top: 20px; font-weight: bold; color: green; }
+</style>
+</head>
+<body>
+<h1>Codificador de Mensajes</h1>
+
+<input type="text" id="mensaje" placeholder="Escribe tu mensaje">
+<button onclick="codificar()">Codificar</button>
+<button onclick="decodificar()">Decodificar</button>
+
+<div id="resultado">Aquí aparecerá el mensaje codificado</div>
+
+<script>
+let mensajeCodificado = "";
+
+function codificar() {
+    const mensaje = document.getElementById('mensaje').value;
+    // Simple codificación: cambiar cada letra por su código char + 3
+    mensajeCodificado = Array.from(mensaje)
+        .map(c => String.fromCharCode(c.charCodeAt(0) + 3))
+        .join('');
+    document.getElementById('resultado').textContent = mensajeCodificado;
+}
+
+function decodificar() {
+    const decodificado = Array.from(mensajeCodificado)
+        .map(c => String.fromCharCode(c.charCodeAt(0) - 3))
+        .join('');
+    document.getElementById('resultado').textContent = decodificado;
+}
+</script>
+</body>
+</html>

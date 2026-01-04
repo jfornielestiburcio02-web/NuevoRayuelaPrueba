@@ -56,29 +56,60 @@
         .texto {
             font-size: 18px;
             max-width: 600px;
-            margin: 0 auto;
+            margin: 0 auto 30px;
+        }
+
+        input, textarea {
+            width: 80%;
+            max-width: 500px;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        .enviar {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 18px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .enviar:hover {
+            background-color: darkred;
         }
     </style>
 
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/10.15.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.15.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.15.0/firebase-firestore-compat.js"></script>
-
     <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyDPdV7WVv9Eekms5xsb_AO0dFODdURQbXs",
-            authDomain: "ugtmadrid-57593.firebaseapp.com",
-            projectId: "ugtmadrid-57593",
-            storageBucket: "ugtmadrid-57593.firebasestorage.app",
-            messagingSenderId: "758166491488",
-            appId: "1:758166491488:web:3b8159cfe71541b5924e05"
-        };
+        async function enviarDenuncia() {
+            const titulo = document.getElementById("titulo").value.trim();
+            const mensaje = document.getElementById("mensaje").value.trim();
 
-        firebase.initializeApp(firebaseConfig);
+            if (!titulo || !mensaje) {
+                alert("Rellena todos los campos");
+                return;
+            }
 
-        const auth = firebase.auth();
-        const db = firebase.firestore();
+            const res = await fetch("/api/denuncia", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ titulo, mensaje })
+            });
+
+            if (res.ok) {
+                alert("Denuncia enviada correctamente");
+                window.location.href = "index.html";
+            } else {
+                alert("Error al enviar la denuncia");
+            }
+        }
     </script>
 </head>
 <body>
@@ -97,8 +128,14 @@
         <div class="titulo">Panel de Gestión</div>
         <div class="texto">
             Desde esta sección se gestionarán los distintos formularios y funcionalidades
-            del sistema. Selecciona una opción desde el panel de administración.
+            del sistema. Completa el formulario para enviar una denuncia.
         </div>
+
+        <input id="titulo" placeholder="Título de la denuncia">
+        <br>
+        <textarea id="mensaje" placeholder="Describe la denuncia"></textarea>
+        <br>
+        <button class="enviar" onclick="enviarDenuncia()">Enviar denuncia</button>
     </div>
 
 </body>

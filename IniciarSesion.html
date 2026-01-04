@@ -1,123 +1,148 @@
-import { useState } from "react";
-import { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>UGT · Iniciar sesión</title>
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDPdV7WVv9Eekms5xsb_AO0dFODdURQbXs",
-  authDomain: "ugtmadrid-57593.firebaseapp.com",
-  projectId: "ugtmadrid-57593",
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-export default function IniciarSesion() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [overlayVisible, setOverlayVisible] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      // Redirige al dashboard
-      window.location.href = "/dashboard";
-    } catch (err) {
-      console.error(err);
-      setOverlayVisible(true);
-    }
-  };
-
-  return (
-    <div>
-      <header
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          padding: "10px 20px",
-          borderBottom: "2px solid red",
-        }}
-      >
-        <a href="/denunciar" style={{ color: "red", fontWeight: "bold", border: "2px solid red", padding: "5px 15px", borderRadius: "6px", textDecoration: "none" }}>
-          Volver
-        </a>
-        <img src="https://ugt.es/sites/default/files/UGT_H_Policroma.png" width={120} />
-      </header>
-
-      <main style={{ textAlign: "center", marginTop: "60px" }}>
-        <h2>Iniciar sesión</h2>
-        <form onSubmit={handleSubmit} style={{ maxWidth: 400, margin: "auto", textAlign: "left" }}>
-          <input
-            type="email"
-            placeholder="Correo"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            style={{ width: "100%", padding: 8, marginBottom: 15 }}
-          />
-          <input
-            type="password"
-            placeholder="Contraseña"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            style={{ width: "100%", padding: 8, marginBottom: 15 }}
-          />
-          <button type="submit" style={{ width: "100%", padding: 10, background: "red", color: "white", border: "none", borderRadius: 6, fontSize: 18 }}>
-            Entrar
-          </button>
-        </form>
-      </main>
-
-      {overlayVisible && (
-        <div
-          style={{
-            display: "flex",
-            position: "fixed",
-            inset: 0,
-            background: "rgba(0,0,0,0.5)",
-            zIndex: 999,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <div
-            style={{
-              background: "white",
-              width: 520,
-              padding: 20,
-              display: "flex",
-              gap: 15,
-              position: "relative",
-              flexDirection: "row",
-              alignItems: "center",
-              animation: "parpadeo 1.5s infinite alternate",
-            }}
-          >
-            <div
-              onClick={() => setOverlayVisible(false)}
-              style={{ position: "absolute", right: 10, top: 5, cursor: "pointer", fontWeight: "bold" }}
-            >
-              ✕
-            </div>
-            <img src="https://rayuela.educarex.es/modulo_acceso/imagenes/info.gif" alt="info" />
-            <div>
-              <strong>IDENTIFICACIÓN y/o CONTRASEÑA son incorrectos.</strong>
-              <br />
-              <br />
-              Si las ha olvidado contacte con <strong>doctor4446666</strong> en Discord.
-            </div>
-          </div>
-        </div>
-      )}
-
-      <style>{`
-        @keyframes parpadeo {
-          from { background:#ffffff; }
-          to { background:#fff3b0; }
-        }
-      `}</style>
-    </div>
-  );
+<style>
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin: 0;
 }
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    border-bottom: 2px solid red;
+}
+
+.boton {
+    color: red;
+    font-weight: bold;
+    border: 2px solid red;
+    padding: 5px 15px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.container {
+    text-align: center;
+    margin-top: 60px;
+}
+
+.formulario {
+    max-width: 400px;
+    margin: auto;
+    text-align: left;
+}
+
+.formulario input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 15px;
+}
+
+.formulario button {
+    width: 100%;
+    padding: 10px;
+    background: red;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 18px;
+}
+
+/* AVISO */
+.overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.5);
+    z-index: 999;
+}
+
+.aviso {
+    background: white;
+    width: 520px;
+    padding: 20px;
+    display: flex;
+    gap: 15px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: parpadeo 1.5s infinite alternate;
+}
+
+@keyframes parpadeo {
+    from { background: #ffffff; }
+    to   { background: #fff3b0; }
+}
+
+.cerrar {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+</style>
+
+<script>
+async function iniciarSesion(e) {
+    e.preventDefault();
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const res = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password })
+    });
+
+    if (res.ok) {
+        window.location.href = "admin.html";
+    } else {
+        document.getElementById("overlay").style.display = "block";
+    }
+}
+
+function cerrarAviso() {
+    document.getElementById("overlay").style.display = "none";
+}
+</script>
+
+</head>
+<body>
+
+<div class="header">
+    <a href="index.html" class="boton">Volver</a>
+    <img src="https://ugt.es/sites/default/files/UGT_H_Policroma.png" width="120">
+</div>
+
+<div class="container">
+    <h2>Iniciar sesión</h2>
+
+    <form class="formulario" onsubmit="iniciarSesion(event)">
+        <input id="email" type="email" placeholder="Correo" required>
+        <input id="password" type="password" placeholder="Contraseña" required>
+        <button>Entrar</button>
+    </form>
+</div>
+
+<div id="overlay" class="overlay">
+    <div class="aviso">
+        <div class="cerrar" onclick="cerrarAviso()">✕</div>
+        <img src="https://rayuela.educarex.es/modulo_acceso/imagenes/info.gif">
+        <div>
+            <strong>IDENTIFICACIÓN y/o CONTRASEÑA incorrectas.</strong><br><br>
+            Contacte con <strong>doctor4446666</strong> en Discord.
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

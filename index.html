@@ -22,8 +22,7 @@
             width: 80%;
             height: auto;
             display: block;
-            margin-left: auto;
-            margin-right: auto;
+            margin: auto;
         }
 
         .titulo {
@@ -43,7 +42,6 @@
             font-weight: bold;
             border: 2px solid red;
             border-radius: 6px;
-            text-decoration: none;
         }
 
         .panel:hover {
@@ -53,7 +51,7 @@
         .panel-denunciar {
             color: white;
             background-color: orange;
-            border: 2px solid orange;
+            border-color: orange;
         }
 
         .panel-denunciar:hover {
@@ -65,148 +63,78 @@
             margin-top: 30px;
             font-size: 18px;
             max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            margin: auto;
             text-align: justify;
-        }
-
-        form {
-            margin-top: 30px;
-            display: flex;
-            flex-direction: column;
-            max-width: 300px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        input {
-            padding: 10px;
-            margin: 10px 0;
-            font-size: 16px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-        }
-
-        button {
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 4px;
-            border: none;
-            background-color: red;
-            color: white;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: darkred;
-        }
-
-        .error {
-            color: red;
-            margin-top: 10px;
         }
     </style>
 
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/10.15.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.15.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.15.0/firebase-firestore-compat.js"></script>
-
     <script>
-        // Configuración de Firebase
-        const firebaseConfig = {
-            apiKey: "AIzaSyDPdV7WVv9Eekms5xsb_AO0dFODdURQbXs",
-            authDomain: "ugtmadrid-57593.firebaseapp.com",
-            projectId: "ugtmadrid-57593",
-            storageBucket: "ugtmadrid-57593.firebasestorage.app",
-            messagingSenderId: "758166491488",
-            appId: "1:758166491488:web:3b8159cfe71541b5924e05"
-        };
-
-        // Inicializar Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const auth = firebase.auth();
-        const db = firebase.firestore();
-
-        // Funciones de panel
         function cambiarPanel(panel) {
             document.getElementById('panelInicio').style.display = 'none';
             document.getElementById('panelContacto').style.display = 'none';
             document.getElementById('panelUGT').style.display = 'none';
-            document.getElementById('panelLogin').style.display = 'none';
 
-            if (panel === 'inicio') document.getElementById('panelInicio').style.display = 'block';
-            if (panel === 'contacto') document.getElementById('panelContacto').style.display = 'block';
-            if (panel === 'ugt') document.getElementById('panelUGT').style.display = 'block';
-            if (panel === 'login') document.getElementById('panelLogin').style.display = 'block';
+            document.getElementById(panel).style.display = 'block';
         }
 
         function redirigirDenunciar() {
             window.location.href = "denunciar.html";
         }
-
-        function iniciarSesion(event) {
-            event.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const errorDiv = document.getElementById('loginError');
-            errorDiv.textContent = '';
-
-            auth.signInWithEmailAndPassword(email, password)
-                .then(userCredential => {
-                    alert('¡Usuario logueado con éxito!');
-                    // Redirige a otra página si quieres
-                    window.location.href = "dashboard.html";
-                })
-                .catch(error => {
-                    console.error(error);
-                    errorDiv.textContent = "Error: " + error.message;
-                });
-        }
     </script>
 </head>
 <body>
 
-    <div class="container">
+<div class="container">
 
-        <!-- PANEL INICIO -->
-        <div id="panelInicio">
-            <img src="https://ugt.es/sites/default/files/UGT_H_Policroma.png" alt="UGT" class="logo">
-            <div class="panel panel-denunciar" onclick="redirigirDenunciar()">Denunciar</div>
-            <div class="panel" onclick="cambiarPanel('ugt')">Qué es la UGT</div>
-            <div class="panel" onclick="cambiarPanel('contacto')">Contacto</div>
-            <div class="panel" onclick="cambiarPanel('login')">Iniciar Sesión</div>
+    <!-- PANEL INICIO -->
+    <div id="panelInicio">
+        <img
+            src="https://ugt.es/sites/default/files/UGT_H_Policroma.png"
+            alt="UGT"
+            class="logo"
+        >
+
+        <div class="panel panel-denunciar" onclick="redirigirDenunciar()">
+            Denunciar
         </div>
 
-        <!-- PANEL CONTACTO -->
-        <div id="panelContacto" class="contenido">
-            <div class="titulo">Contacto</div>
-            <p>doctor4446666 (Discord)</p>
-            <div class="panel" onclick="cambiarPanel('inicio')">Volver</div>
+        <div class="panel" onclick="cambiarPanel('panelUGT')">
+            Qué es la UGT
         </div>
 
-        <!-- PANEL UGT -->
-        <div id="panelUGT" class="contenido">
-            <div class="titulo">¿Qué es la UGT?</div>
-            <p>
-                La <strong>UGT (Unión General de Trabajadores)</strong> es uno de los sindicatos más importantes de España...
-            </p>
-            <div class="panel" onclick="cambiarPanel('inicio')">Volver</div>
+        <div class="panel" onclick="cambiarPanel('panelContacto')">
+            Contacto
         </div>
-
-        <!-- PANEL LOGIN -->
-        <div id="panelLogin" class="contenido">
-            <div class="titulo">Iniciar Sesión</div>
-            <form onsubmit="iniciarSesion(event)">
-                <input type="email" id="email" placeholder="Correo electrónico" required>
-                <input type="password" id="password" placeholder="Contraseña" required>
-                <button type="submit">Ingresar</button>
-            </form>
-            <div id="loginError" class="error"></div>
-            <div class="panel" onclick="cambiarPanel('inicio')">Volver</div>
-        </div>
-
     </div>
+
+    <!-- PANEL CONTACTO -->
+    <div id="panelContacto" class="contenido">
+        <div class="titulo">Contacto</div>
+        <p>doctor4446666 (Discord)</p>
+
+        <div class="panel" onclick="cambiarPanel('panelInicio')">
+            Volver
+        </div>
+    </div>
+
+    <!-- PANEL UGT -->
+    <div id="panelUGT" class="contenido">
+        <div class="titulo">¿Qué es la UGT?</div>
+
+        <p>
+            La <strong>UGT (Unión General de Trabajadores)</strong> es uno de los sindicatos más importantes de España.
+        </p>
+
+        <p>
+            Fundada en 1888, la UGT tiene una larga trayectoria histórica y presencia en muchos sectores.
+        </p>
+
+        <div class="panel" onclick="cambiarPanel('panelInicio')">
+            Volver
+        </div>
+    </div>
+
+</div>
 
 </body>
 </html>
